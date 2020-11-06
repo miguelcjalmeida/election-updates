@@ -63,7 +63,7 @@
     const line1 = `${stateName} got new votes!`
     const line2 = buildVoteLine(biden, cachedVotes[0], currentVotes[0])
     const line3 = buildVoteLine(trump, cachedVotes[1], currentVotes[1])
-    const line4 = votesDiff >= 0 ? `${trump} needs ${f(votesDiff)} votes` : `${biden} needs ${f(-votesDiff)} votes`
+    const line4 = isBidenWinning ? `${trump} needs ${f(votesDiff)} votes` : `${biden} needs ${f(-votesDiff)} votes`
     const line5 = isProjectionVisible ? `By projection, ${losingCandidate} could be winning after ${f(projection)} votes` : ''
 
     return `${line1}\n${line2}\n${line3}\n${line4}\n${line5}`
