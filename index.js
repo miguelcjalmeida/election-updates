@@ -1,7 +1,10 @@
+var SetStateVotes = null
+
 ;(function () {
   const votesByStateCache = {}
 
   init()
+  SetStateVotes = setStateVotes
 
   function init() {
     let $states = document.querySelectorAll('.fKE5Bb')
@@ -39,7 +42,7 @@
       }
 
       repetition()
-      setInterval(repetition, 60000)
+      setInterval(repetition, 5000)
     }
   }
 
@@ -56,7 +59,12 @@
     const trumpNewVotes = currentVotes[1] - cachedVotes[1]
     const loserNewVotes = isBidenWinning ? trumpNewVotes : bidenNewVotes
 
-    const projectionInFloat = Math.abs(votesDiff) / (loserNewVotes / (bidenNewVotes + trumpNewVotes))
+    const totalNewVotes = bidenNewVotes + trumpNewVotes
+    const trumpPercNewVotes = trumpNewVotes / totalNewVotes
+    const bidenPercNewVotes = bidenNewVotes / totalNewVotes
+    const diffPercentNewVote = isBidenWinning ? trumpPercNewVotes - bidenPercNewVotes : bidenPercNewVotes - trumpPercNewVotes
+    const projectionInFloat = Math.abs(votesDiff) / diffPercentNewVote
+
     const projection = parseInt(projectionInFloat, 10)
     const isProjectionVisible = (isBidenWinning && trumpNewVotes > bidenNewVotes) || (!isBidenWinning && bidenNewVotes > trumpNewVotes)
 
@@ -64,7 +72,7 @@
     const line2 = buildVoteLine(biden, cachedVotes[0], currentVotes[0])
     const line3 = buildVoteLine(trump, cachedVotes[1], currentVotes[1])
     const line4 = isBidenWinning ? `${trump} needs ${f(votesDiff)} votes` : `${biden} needs ${f(-votesDiff)} votes`
-    const line5 = isProjectionVisible ? `By projection, ${losingCandidate} could be winning after ${f(projection)} votes` : ''
+    const line5 = isProjectionVisible ? `By projection, ${losingCandidate} could be winning after ${f(projection)} more votes counted` : ''
 
     return `${line1}\n${line2}\n${line3}\n${line4}\n${line5}`
 
@@ -119,5 +127,14 @@
 
   function getState($name) {
     return document.evaluate(`//span[text()="${$name}"]`, document, null, XPathResult.ANY_TYPE, null).iterateNext().parentNode.parentNode
+  }
+
+  function setStateVotes(name, vote1, vote2) {
+    let $state = getState(name)
+    const $votes = $state.querySelectorAll(':scope > div')[1]
+    const $biden = $votes.querySelectorAll(':scope > div')[0]
+    const $trump = $votes.querySelectorAll(':scope > div')[1]
+    $biden.querySelectorAll(':scope > span')[1].innerText = vote1
+    $trump.querySelectorAll(':scope > span')[1].innerText = vote2
   }
 })()
