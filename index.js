@@ -39,7 +39,7 @@
       }
 
       repetition()
-      setInterval(repetition, 5000)
+      setInterval(repetition, 60000)
     }
   }
 
