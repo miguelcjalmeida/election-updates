@@ -73,13 +73,20 @@ var SetStateVotes = null
     const projection = parseInt(projectionInFloat, 10)
     const isProjectionVisible = (isBidenWinning && trumpNewVotes > bidenNewVotes) || (!isBidenWinning && bidenNewVotes > trumpNewVotes)
 
+    const reportedVotesPerc = getStateReportedVotesPercentage($state)
+    const unreportedVotesPerc = 100 - reportedVotesPerc
+    const allPartiesVotes = getAllPartiesVotesOfState($state)
+    const estimatedMissingVotes = Math.round(allPartiesVotes - (allPartiesVotes * reportedVotesPerc) / 100)
+
     const line1 = `${stateName} got new votes!`
     const line2 = buildVoteLine(biden, cachedVotes[0], currentVotes[0])
     const line3 = buildVoteLine(trump, cachedVotes[1], currentVotes[1])
     const line4 = `${losingCandidate} needs ${f(votesDiff)} votes`
-    const line5 = isProjectionVisible ? `By projection, ${losingCandidate} could be winning after ${f(projection)} more votes counted` : ''
+    const line5 = `${stateName} has yet to report around ${f(estimatedMissingVotes)} (${f(unreportedVotesPerc)}%) votes.`
+    const line5Addendum = `So far ${f(allPartiesVotes)} (${f(reportedVotesPerc)}%) votes were counted`
+    const line6 = isProjectionVisible ? `By projection, ${losingCandidate} could be winning after ${f(projection)} more votes counted` : ''
 
-    return `${line1}\n${line2}\n${line3}\n${line4}\n${line5}`
+    return `${line1}\n${line2}\n${line3}\n${line4}\n${line5} ${line5Addendum}\n${line6}`
 
     function buildVoteLine(candidate, oldVote, currentVote) {
       const oldVoteFormatted = f(oldVote)
@@ -114,6 +121,24 @@ var SetStateVotes = null
     return [getBidenVotes($state), getTrumpVotes($state)]
   }
 
+  function getStateReportedVotesPercentage($state) {
+    return $state.querySelector('.E2WDKf').textContent.match(/(\d+)%/)[1]
+  }
+
+  function getAllPartiesVotesOfState($state) {
+    const $votes = $state.querySelectorAll(':scope > div')[1]
+    const $biden = $votes.querySelectorAll(':scope > div')[0]
+    const $trump = $votes.querySelectorAll(':scope > div')[1]
+    const bidenVotes = getSectionVotes($biden)
+    const trumpVotes = getSectionVotes($trump)
+    const bidenVotesPerc = getSectionVotesPerc($biden)
+    const trumpVotesPerc = getSectionVotesPerc($trump)
+    const bothVotesPerc = bidenVotesPerc + trumpVotesPerc
+    const bothVotes = bidenVotes + trumpVotes
+
+    return Math.round((bothVotes * 100) / bothVotesPerc)
+  }
+
   function getBidenVotes($state) {
     const $votes = $state.querySelectorAll(':scope > div')[1]
     const $biden = $votes.querySelectorAll(':scope > div')[0]
@@ -128,6 +153,16 @@ var SetStateVotes = null
 
   function getSectionVotes($voteSection) {
     return parseInt($voteSection.querySelectorAll(':scope > span')[1].textContent.replace(/[\.\,]/g, ''), 10)
+  }
+
+  function getSectionVotesPerc($voteSection) {
+    return parseFloat(
+      $voteSection
+        .querySelectorAll(':scope > span')[0]
+        .textContent.replace(/[\.\,]/g, '.')
+        .replace('%', ''),
+      10
+    )
   }
 
   function getState($name) {
