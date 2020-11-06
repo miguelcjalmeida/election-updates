@@ -8,3 +8,5 @@ A quick script to allow you to receive updates from US presidential election dir
 
 ### Credits
 - Douglas Almena: Thanks for tunning in the script! 
+
+![Log](https://raw.githubusercontent.com/miguelcjalmeida/election-updates/main/assets/console.png)
