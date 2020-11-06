@@ -1,3 +1,4 @@
+// for testing
 var SetStateVotes = null
 
 ;(function () {
@@ -42,7 +43,7 @@ var SetStateVotes = null
       }
 
       repetition()
-      setInterval(repetition, 5000)
+      setInterval(repetition, 60000)
     }
   }
 
@@ -57,13 +58,12 @@ var SetStateVotes = null
     const losingCandidate = isBidenWinning ? trump : biden
     const bidenNewVotes = currentVotes[0] - cachedVotes[0]
     const trumpNewVotes = currentVotes[1] - cachedVotes[1]
-    const loserNewVotes = isBidenWinning ? trumpNewVotes : bidenNewVotes
 
     const totalNewVotes = bidenNewVotes + trumpNewVotes
     const trumpPercNewVotes = trumpNewVotes / totalNewVotes
     const bidenPercNewVotes = bidenNewVotes / totalNewVotes
-    const diffPercentNewVote = isBidenWinning ? trumpPercNewVotes - bidenPercNewVotes : bidenPercNewVotes - trumpPercNewVotes
-    const projectionInFloat = Math.abs(votesDiff) / diffPercentNewVote
+    const loserDiffPercNewVote = isBidenWinning ? trumpPercNewVotes - bidenPercNewVotes : bidenPercNewVotes - trumpPercNewVotes
+    const projectionInFloat = Math.abs(votesDiff) / loserDiffPercNewVote
 
     const projection = parseInt(projectionInFloat, 10)
     const isProjectionVisible = (isBidenWinning && trumpNewVotes > bidenNewVotes) || (!isBidenWinning && bidenNewVotes > trumpNewVotes)
