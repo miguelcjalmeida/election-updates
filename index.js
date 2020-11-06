@@ -85,8 +85,12 @@ var SetStateVotes = null
     const line5 = `${stateName} has yet to report up to ${f(estimatedMissingVotes)} (${f(unreportedVotesPerc)}%) votes.`
     const line5Addendum = `So far ${f(allPartiesVotes)} (${f(reportedVotesPerc)}%) votes were counted`
     const line6 = isProjectionVisible ? `By projection, ${losingCandidate} could be winning after ${f(projection)} more votes counted` : ''
+    const line7 =
+      votesDiff > estimatedMissingVotes
+        ? `DONE! Race is over in the state of ${stateName}\nBecause ${losingCandidate} would need more votes than the amount left to count!`
+        : ''
 
-    return `${line1}\n${line2}\n${line3}\n${line4}\n${line5} ${line5Addendum}\n${line6}`
+    return `${line1}\n${line2}\n${line3}\n${line4}\n${line5} ${line5Addendum}\n${line6}\n${line7}`
 
     function buildVoteLine(candidate, oldVote, currentVote) {
       const oldVoteFormatted = f(oldVote)
