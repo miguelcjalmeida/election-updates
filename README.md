@@ -1,5 +1,5 @@
 # Election-Updates
-A quick script to allow you to receive updates from American presidential election directly to your browser console.
+A quick script to allow you to receive updates from US presidential election directly to your browser console.
 
 ### How to use
 - Copy paste the index.js script into your browser console and run
