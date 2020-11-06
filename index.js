@@ -82,7 +82,7 @@ var SetStateVotes = null
     const line2 = buildVoteLine(biden, cachedVotes[0], currentVotes[0])
     const line3 = buildVoteLine(trump, cachedVotes[1], currentVotes[1])
     const line4 = `${losingCandidate} needs ${f(votesDiff)} votes`
-    const line5 = `${stateName} has yet to report around ${f(estimatedMissingVotes)} (${f(unreportedVotesPerc)}%) votes.`
+    const line5 = `${stateName} has yet to report up to ${f(estimatedMissingVotes)} (${f(unreportedVotesPerc)}%) votes.`
     const line5Addendum = `So far ${f(allPartiesVotes)} (${f(reportedVotesPerc)}%) votes were counted`
     const line6 = isProjectionVisible ? `By projection, ${losingCandidate} could be winning after ${f(projection)} more votes counted` : ''
 
