@@ -31,7 +31,7 @@ var SetStateVotes = null
       $states = document.querySelectorAll('.fKE5Bb')
       $states.forEach($state => checkStateVoteChanges($state))
       if (hasNewVotes) {
-        alert('New votes! Check console.log')
+        playNotificationSound()
         hasNewVotes = false
       }
     }
@@ -45,6 +45,11 @@ var SetStateVotes = null
       repetition()
       setInterval(repetition, 60000)
     }
+  }
+
+  function playNotificationSound() {
+    const sound = new Audio('https://freesound.org/data/previews/320/320654_5260872-lq.ogg')
+    sound.play()
   }
 
   function getStateVoteUpdateMessage($state) {
