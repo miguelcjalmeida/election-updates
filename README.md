@@ -2,6 +2,8 @@
 
 A quick script to allow you to receive updates from US presidential election directly to your browser console.
 
+![Log](https://raw.githubusercontent.com/miguelcjalmeida/election-updates/main/assets/console.example.png)
+
 ### How to use
 
 - Open google's presidential election page
@@ -16,5 +18,3 @@ A quick script to allow you to receive updates from US presidential election dir
 ### Credits
 
 - Douglas Almena: Thanks for tunning in the script!
-
-![Log](https://raw.githubusercontent.com/miguelcjalmeida/election-updates/main/assets/console.png)
