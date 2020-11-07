@@ -5,11 +5,11 @@ import getStateReportedVotesPerc from '../state/get-state-reported-votes-perc'
 import getAllPartiesVotes from '../state/get-all-parties-votes'
 import f from './format'
 
-export default ($state: Element) => {
+export default (state: Element) => {
   const biden = 'Biden'
   const trump = 'Trump'
-  const stateName = getStateName($state)
-  const currentVotes = getStateVotes($state)
+  const stateName = getStateName(state)
+  const currentVotes = getStateVotes(state)
   const cachedVotes = cachedVotesByState[stateName]
   const votesDiff = Math.abs(currentVotes[0] - currentVotes[1])
   const isBidenWinning = currentVotes[0] >= currentVotes[1]
@@ -26,9 +26,9 @@ export default ($state: Element) => {
   const projection = Math.round(projectionInFloat)
   const isProjectionVisible = (isBidenWinning && trumpNewVotes > bidenNewVotes) || (!isBidenWinning && bidenNewVotes > trumpNewVotes)
 
-  const reportedVotesPerc = getStateReportedVotesPerc($state)
+  const reportedVotesPerc = getStateReportedVotesPerc(state)
   const unreportedVotesPerc = 100 - reportedVotesPerc
-  const allPartiesVotes = getAllPartiesVotes($state)
+  const allPartiesVotes = getAllPartiesVotes(state)
   const estimatedMissingVotes = Math.round(allPartiesVotes - (allPartiesVotes * reportedVotesPerc) / 100)
 
   const line1 = `${stateName} got new votes!`

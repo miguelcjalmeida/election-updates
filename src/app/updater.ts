@@ -11,7 +11,7 @@ export interface IAppUpdater {
 
 export class AppUpdater implements IAppUpdater {
   private hasNewVotes: boolean
-  private $states: NodeListOf<Element>
+  private stateElements: NodeListOf<Element>
 
   start() {
     this.setInitialValues()
@@ -21,15 +21,15 @@ export class AppUpdater implements IAppUpdater {
   private setInitialValues() {
     this.hasNewVotes = false
     this.refreshListOfStates()
-    this.$states.forEach(this.saveStateInCache.bind(this))
+    this.stateElements.forEach(this.saveStateInCache.bind(this))
   }
 
   private refreshListOfStates() {
-    this.$states = document.querySelectorAll('.fKE5Bb')
+    this.stateElements = document.querySelectorAll('.fKE5Bb')
   }
 
-  private saveStateInCache($state: Element) {
-    const stateName = getStateName($state)
+  private saveStateInCache(state: Element) {
+    const stateName = getStateName(state)
     cachedVotesByState[stateName] = [0, 0]
   }
 
@@ -49,8 +49,8 @@ export class AppUpdater implements IAppUpdater {
 
   private checkForChanges() {
     this.refreshListOfStates()
-    this.$states = document.querySelectorAll('.fKE5Bb')
-    this.$states.forEach(this.checkForStateChanges.bind(this))
+    this.stateElements = document.querySelectorAll('.fKE5Bb')
+    this.stateElements.forEach(this.checkForStateChanges.bind(this))
 
     if (this.hasNewVotes) {
       notifyOfUpdates()
@@ -58,10 +58,10 @@ export class AppUpdater implements IAppUpdater {
     }
   }
 
-  private checkForStateChanges($state: Element) {
-    if (didAnyVoteHappen($state)) {
-      console.log(getStateUpdates($state))
-      cachedVotesByState[getStateName($state)] = getStateVotes($state)
+  private checkForStateChanges(state: Element) {
+    if (didAnyVoteHappen(state)) {
+      console.log(getStateUpdates(state))
+      cachedVotesByState[getStateName(state)] = getStateVotes(state)
       this.hasNewVotes = true
     }
   }
