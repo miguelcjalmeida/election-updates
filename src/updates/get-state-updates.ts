@@ -5,6 +5,15 @@ import getStateReportedVotesPerc from '../state/get-state-reported-votes-perc'
 import getAllPartiesVotes from '../state/get-all-parties-votes'
 import f from './format'
 
+const buildVoteLine = (candidate: string, oldVote: number, currentVote: number) => {
+  const oldVoteFormatted = f(oldVote)
+  const currentVoteFormatted = f(currentVote)
+  const diffPrefix = currentVote > oldVote ? '+' : ''
+  const diffFormatted = `${diffPrefix}${f(currentVote - oldVote)}`
+
+  return `${candidate}: ${oldVoteFormatted} -> ${currentVoteFormatted} (${diffFormatted})`
+}
+
 export default (state: Element) => {
   const biden = 'Biden'
   const trump = 'Trump'
@@ -44,13 +53,4 @@ export default (state: Element) => {
       : ''
 
   return `${line1}\n${line2}\n${line3}\n${line4}\n${line5} ${line5Addendum}\n${line6}\n${line7}`
-}
-
-function buildVoteLine(candidate: string, oldVote: number, currentVote: number) {
-  const oldVoteFormatted = f(oldVote)
-  const currentVoteFormatted = f(currentVote)
-  const diffPrefix = currentVote > oldVote ? '+' : ''
-  const diffFormatted = `${diffPrefix}${f(currentVote - oldVote)}`
-
-  return `${candidate}: ${oldVoteFormatted} -> ${currentVoteFormatted} (${diffFormatted})`
 }

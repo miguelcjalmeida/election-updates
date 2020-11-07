@@ -6,6 +6,7 @@ module.exports = {
   rules: {
     semi: ['error', 'never'],
     '@typescript-eslint/semi': ['error', 'never'],
-    'react/destructuring-assignment': 'off',
+    'no-console': 'off',
+    '@typescript-eslint/no-implied-eval': 'off',
   },
 }

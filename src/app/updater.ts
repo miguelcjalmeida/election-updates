@@ -11,6 +11,7 @@ export interface IAppUpdater {
 
 export class AppUpdater implements IAppUpdater {
   private hasNewVotes: boolean
+
   private stateElements: NodeListOf<Element>
 
   start() {
@@ -21,14 +22,14 @@ export class AppUpdater implements IAppUpdater {
   private setInitialValues() {
     this.hasNewVotes = false
     this.refreshListOfStates()
-    this.stateElements.forEach(this.saveStateInCache.bind(this))
+    this.stateElements.forEach(AppUpdater.saveStateInCache)
   }
 
   private refreshListOfStates() {
     this.stateElements = document.querySelectorAll('.fKE5Bb')
   }
 
-  private saveStateInCache(state: Element) {
+  private static saveStateInCache(state: Element) {
     const stateName = getStateName(state)
     cachedVotesByState[stateName] = [0, 0]
   }
