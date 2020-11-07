@@ -1,5 +1,3 @@
-function f(number: number) {
-  return number.toLocaleString()
-}
+const f = (number: number) => number.toLocaleString()
 
 export default f
