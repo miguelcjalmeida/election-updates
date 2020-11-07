@@ -10,7 +10,7 @@
   ],
   "description": "",
   "scripts": {
-    "dev": "concurrently \"npm run watch:tsc\" \"npm run watch:dist\"",
+    "dev": "concurrently -k -c \"yellow.bold,cyan.bold\" \"npm run watch:tsc\" \"npm run watch:dist\"",
     "watch:tsc": "tsc --watch & npm run watch:dist",
     "watch:dist": "chokidar \"lib/**/*.js\" -c \"npm run build-from-dist\" --silent",
     "build": "tsc && npm run build-from-dist",
