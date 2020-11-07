@@ -4,15 +4,12 @@
     "module": "commonjs",
     "lib": ["es2015", "es2017", "dom"],
     "alwaysStrict": true,
-    // "allowJs": false,
-    // "declaration": false,
-    // "emitDecoratorMetadata": true,
-    // "experimentalDecorators": true,
-    // "noImplicitReturns": true,
-    // change
+    "allowJs": false,
+    "declaration": false,
+    "noImplicitReturns": true,
     "noImplicitAny": false,
-    // "noImplicitThis": true,
-    // "strictNullChecks": true
+    "noImplicitThis": true,
+    "strictNullChecks": true,
     "outDir": "./lib"
   }
 }
