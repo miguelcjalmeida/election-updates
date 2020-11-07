@@ -70,7 +70,7 @@ var SetStateVotes = null
     const loserDiffPercNewVote = isBidenWinning ? trumpPercNewVotes - bidenPercNewVotes : bidenPercNewVotes - trumpPercNewVotes
     const projectionInFloat = votesDiff / loserDiffPercNewVote
 
-    const projection = parseInt(projectionInFloat, 10)
+    const projection = Math.round(projectionInFloat)
     const isProjectionVisible = (isBidenWinning && trumpNewVotes > bidenNewVotes) || (!isBidenWinning && bidenNewVotes > trumpNewVotes)
 
     const reportedVotesPerc = getStateReportedVotesPercentage($state)
@@ -164,8 +164,7 @@ var SetStateVotes = null
       $voteSection
         .querySelectorAll(':scope > span')[0]
         .textContent.replace(/[\.\,]/g, '.')
-        .replace('%', ''),
-      10
+        .replace('%', '')
     )
   }
 
@@ -178,7 +177,7 @@ var SetStateVotes = null
     const $votes = $state.querySelectorAll(':scope > div')[1]
     const $biden = $votes.querySelectorAll(':scope > div')[0]
     const $trump = $votes.querySelectorAll(':scope > div')[1]
-    $biden.querySelectorAll(':scope > span')[1].innerText = vote1
-    $trump.querySelectorAll(':scope > span')[1].innerText = vote2
+    $biden.querySelectorAll(':scope > span')[1].textContent = vote1
+    $trump.querySelectorAll(':scope > span')[1].textContent = vote2
   }
 })()

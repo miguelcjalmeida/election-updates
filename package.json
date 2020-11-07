@@ -1,23 +1,39 @@
-
 {
-    "name": "election-updates",
-    "version": "1.2.0",
-    "author": {
-        "name": "Miguel Almeida",
-        "email": "darkmagusbr@gmail.com"
-    },
-    "contributors": ["Douglas Almena"],
-    "description": "",
-    "scripts": {  },
-    "dependencies": {},
-    "devDependencies": {  },
-    "prettier": {
-      "semi": false,
-      "singleQuote": true,
-      "trailingComma": "es5",
-      "printWidth": 160,
-      "useTabs": false,
-      "endOfLine": "lf",
-      "arrowParens": "avoid"
-    }
+  "name": "election-updates",
+  "version": "1.2.0",
+  "author": {
+    "name": "Miguel Almeida",
+    "email": "darkmagusbr@gmail.com"
+  },
+  "contributors": [
+    "Douglas Almena"
+  ],
+  "description": "",
+  "scripts": {
+    "dev": "concurrently \"npm run watch:tsc\" \"npm run watch:dist\"",
+    "watch:tsc": "tsc --watch & npm run watch:dist",
+    "watch:dist": "chokidar \"lib/**/*.js\" -c \"npm run build-from-dist\" --silent",
+    "build": "tsc && npm run build-from-dist",
+    "build-from-dist": "browserify ./lib/app.js > ./dist/app.js && echo build complete.",
+    "release": "tsc && browserify ./lib/app.js | uglifyjs > ./release/app.js && echo build complete.",
+    "install": "mkdir dist"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "browserify": "^17.0.0",
+    "chokidar": "^3.4.3",
+    "chokidar-cli": "^2.1.0",
+    "concurrently": "^5.3.0",
+    "typescript": "^4.0.5",
+    "uglify-js": "^3.11.5"
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "es5",
+    "printWidth": 160,
+    "useTabs": false,
+    "endOfLine": "lf",
+    "arrowParens": "avoid"
   }
+}
