@@ -1,6 +1,6 @@
 import getState from './get-state'
 
-export default (name, vote1, vote2) => {
+export default (name: string, vote1: string, vote2: string) => {
   let $state = getState(name)
   const $votes = $state.querySelectorAll(':scope > div')[1]
   const $biden = $votes.querySelectorAll(':scope > div')[0]
