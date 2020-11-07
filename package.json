@@ -14,8 +14,8 @@
     "watch:tsc": "tsc --watch & npm run watch:dist",
     "watch:dist": "chokidar \"lib/**/*.js\" -c \"npm run build-from-dist\" --silent",
     "build": "tsc && npm run build-from-dist",
-    "build-from-dist": "browserify ./lib/app.js > ./dist/app.js && echo build complete.",
-    "release": "tsc && browserify ./lib/app.js | uglifyjs > ./release/app.js && echo build complete.",
+    "build-from-dist": "browserify ./lib/index.js > ./dist/index.js && echo build complete.",
+    "release": "tsc && browserify ./lib/index.js | uglifyjs > ./release/app.js && echo build complete.",
     "install": "mkdir dist"
   },
   "dependencies": {},
